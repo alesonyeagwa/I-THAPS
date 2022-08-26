@@ -1,0 +1,1297 @@
+<div>
+
+	<script type="text/template" id="quiz-layout-tpl">
+
+		<div class="forminator-quizzes-content sui-row-with-sidenav"></div>
+
+	</script>
+
+	<script type="text/template" id="quiz-main-tpl">
+
+		<nav class="sui-sidenav">
+
+			<ul class="sui-vertical-tabs sui-sidenav-hide-md">
+
+				{[ if( type === "knowledge") { ]}
+					<li class="sui-vertical-tab" data-tab-id="0">
+						<a href="/" role="button" data-tab-id="0">{{ Forminator.l10n.quizzes.details }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="1">
+						<a href="/" role="button" data-tab-id="1">{{ Forminator.l10n.quizzes.questions }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="2">
+						<a href="/" role="button" data-tab-id="2">{{ Forminator.l10n.quizzes.settings }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="3">
+						<a href="/" role="button" data-tab-id="3">{{ Forminator.l10n.quizzes.appearance }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+				{[ } else { ]}
+					<li class="sui-vertical-tab" data-tab-id="0">
+						<a href="/" role="button" data-tab-id="0">{{ Forminator.l10n.quizzes.details }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="1">
+						<a href="/" role="button" data-tab-id="1">{{ Forminator.l10n.quizzes.results }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="2">
+						<a href="/" role="button" data-tab-id="2">{{ Forminator.l10n.quizzes.questions }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+
+					<li class="sui-vertical-tab" data-tab-id="3">
+						<a href="/" role="button" data-tab-id="3">{{ Forminator.l10n.quizzes.appearance }}</a>
+						<i class="sui-icon-check-tick" aria-hidden="true"></i>
+					</li>
+				{[ } ]}
+
+			</ul>
+
+			<div class="fui-button-preview-anchor" aria-hidden="true"></div>
+
+			<button class="fui-button-preview" aria-hidden="true" data-modal="preview_quizzes" data-form-id="{{ Forminator.Data.currentForm.form_id }}" data-nonce="{{ Forminator.Data.modules.quizzes.preview_nonce }}">
+				<span>{{ Forminator.l10n.quizzes.preview }}</span>
+				<i class="sui-icon-eye" aria-hidden="true"></i>
+			</button>
+
+		</nav>
+
+		{[ if( type === "knowledge") { ]}
+			<div id="forminator-quiz-details" class="wpmudev-settings--box wpmudev-tab-content-0" style="display: block;"></div>
+			<div id="forminator-quiz-questions" class="wpmudev-settings--box wpmudev-tab-content-1" style="display: none;"></div>
+			<div id="forminator-quiz-settings" class="wpmudev-settings--box wpmudev-tab-content-2" style="display: none;"></div>
+			<div id="forminator-quiz-appearance" class="wpmudev-settings--box wpmudev-tab-content-3" style="display: none;"></div>
+		{[ } else { ]}
+			<div id="forminator-quiz-details" class="wpmudev-settings--box wpmudev-tab-content-0" style="display: block;"></div>
+			<div id="forminator-quiz-results" class="wpmudev-settings--box wpmudev-tab-content-1" style="display: none;"></div>
+			<div id="forminator-quiz-questions" class="wpmudev-settings--box wpmudev-tab-content-2" style="display: none;"></div>
+			<div id="forminator-quiz-appearance" class="wpmudev-settings--box wpmudev-tab-content-3" style="display: none;"></div>
+		{[ } ]}
+
+	</script>
+
+	<script type="text/template" id="quiz-buttons-tpl">
+
+		<div class="sui-box">
+
+			<div class="sui-box-footer">
+
+				<button id="forminator-polls-cancel" class="sui-button">{{ Forminator.l10n.quizzes.cancel }}</button>
+
+				<button id="forminator-polls-back" class="sui-button" style="display: none;">{{ Forminator.l10n.quizzes.back }}</button>
+
+				<div class="sui-actions-right">
+
+					<button class="sui-button sui-button-primary forminator-loading forminator-save" data-nonce="" data-id="">
+						<span class="sui-loading-text">{{ Forminator.l10n.builder.save }}</span>
+						<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+					</button>
+
+					<button id="forminator-polls-next" class="sui-button forminator-loading">
+						<span class="sui-loading-text">{{ Forminator.l10n.quizzes.continue }}</span>
+						<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+					</button>
+
+					<button id="forminator-polls-finish" class="sui-button forminator-loading" style="display: none;">
+						<span class="sui-loading-text">{{ Forminator.l10n.quizzes.finish }}</span>
+						<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+					</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="quiz-section-results-tpl">
+
+		{[ if( type === "knowledge") { ]}
+
+			<div class="sui-box-header">
+
+				<h3 class="sui-box-title">{{ Forminator.l10n.quizzes.settings }}</h3>
+
+			</div>
+
+			<div id="forminator-knowledge-settings" class="sui-box-body"></div>
+
+		{[ } else { ]}
+
+			<div class="sui-box-header">
+
+				<h3 class="sui-box-title">{{ Forminator.l10n.quizzes.results }}</h3>
+
+			</div>
+
+			<div id="forminator-quizwiz-wrap--results" class="sui-box-body"></div>
+
+		{[ } ]}
+
+	</script>
+
+	<script type="text/template" id="quiz-section-details-tpl">
+
+		<div class="sui-box-header">
+
+			<h3 class="sui-box-title">{{Forminator.l10n.quizzes.details}}</h3>
+
+		</div>
+
+		<div class="sui-box-body">
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quiz_details.name }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quiz_details.name_details }}</span>
+
+				</div>
+
+				<div id="forminator-wizard--quiz-name" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quiz_details.title }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quiz_details.title_details }}</span>
+
+				</div>
+
+				<div id="forminator-wizard--quiz-title" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quiz_details.image }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quiz_details.image_details }}</span>
+
+				</div>
+
+				<div id="forminator-wizard--quiz-image" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quiz_details.description }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quiz_details.description_details }}</span>
+
+				</div>
+
+				<div id="forminator-wizard--quiz-description" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="quiz-section-questions-tpl">
+
+		{[ if( type === "nowrong") { ]}
+
+			<div class="sui-box-header">
+
+				<h3 class="sui-box-title">{{ Forminator.l10n.quizzes.questions_title }}</h3>
+
+			</div>
+
+			<div id="forminator-quizwiz-wrap--multiquestion" class="sui-box-body"></div>
+
+			<div id="forminator-quizwiz-wrap--order" class="sui-box-body"></div>
+
+		{[ } else { ]}
+
+			<div class="sui-box-header">
+
+				<h3 class="sui-box-title">{{Forminator.l10n.quizzes.questions_title}}</h3>
+
+			</div>
+
+			<div id="forminator-quizwiz-wrap--multiquestion" class="sui-box-body"></div>
+
+		{[ } ]}
+
+	</script>
+
+	<script type="text/template" id="quiz-section-appearance-nowrong-tpl">
+
+		<div class="sui-box-header">
+
+			<h3 class="sui-box-title">{{ Forminator.l10n.quizzes.appearance }}</h3>
+
+		</div>
+
+		<div class="sui-box-body">
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quizzes.quiz_design }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quizzes.quiz_design_description }}</span>
+
+				</div>
+
+				<div id="forminator-quizwiz-nowrong-theme" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quizzes.visual_style }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quizzes.visual_style_description }}</span>
+
+				</div>
+
+				<div id="forminator-quizwiz-nowrong-visual" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+				<div class="sui-box-settings-col-1">
+					<span class="sui-settings-label">{{ Forminator.l10n.quizzes.share }}</span>
+				</div>
+				<div id="forminator-quizwiz-nowrong-share" class="sui-box-settings-col-2"></div>
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="quiz-nowrong-palette-tpl">
+
+		<!-- Quiz Title -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_title }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--title" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Description -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_description }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--description" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Question -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.question }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--question" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Answer -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.answer }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Container border -->
+				<div class="sui-box wpmudev-not--matflat">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.container_border }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-border" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Container background -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.container_background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-background" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Font color -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.font_color }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-text" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox border -->
+				<div class="sui-box wpmudev-not--flat">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_border }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-checkbo" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox background -->
+				<div class="sui-box wpmudev-not--material">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-checkbg" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox icon -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_icon }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-icon" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Submit Button -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.submit_button }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Background -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--submit-background" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Font color -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.font_color }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--submit-text" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Quiz Result -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_result }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Main styles -->
+				<div class="sui-box wpmudev-not--flat">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.main_styles }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--result-main" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Header styles -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.header_styles }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--result-header" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Content styles -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.content_styles }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--result-content" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Retake Button -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.retake_button }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Background -->
+				<div class="sui-box wpmudev-not--material">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--retake-background" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Font color -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.font_color }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--retake-text" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.social_share }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--social" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+	</script>
+
+	<script type="text/template" id="quiz-nowrong-typography-tpl">
+
+		<!-- Quiz Title -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_title }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--title" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Description -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_description }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--description" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Question -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.question }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--question" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Answer -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.answer }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--answer" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Submit Button -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.submit_button }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--submit-button" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Result -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_result }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Quiz Title -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.quiz_title }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-typography--quiz-title" class="sui-box-body">
+
+						<div class="sui-notice sui-notice-info sui-notice-sm">
+							<p>{{ Forminator.l10n.quiz_appearance.quiz_title_notice }}</p>
+						</div>
+
+					</div>
+
+				</div>
+
+				<!-- Retake Button -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.retake_button }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-typography--result-retake" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Result Title -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.result_title }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-typography--result-title" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Result Description -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.result_description }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-typography--result-description" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Quiz Share -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.social_share }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--social" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+	</script>
+
+	<script type="text/template" id="quiz-section-appearance-knowledge-tpl">
+
+		<div class="sui-box-header">
+
+			<h3 class="sui-box-title">{{ Forminator.l10n.quizzes.appearance }}</h3>
+
+		</div>
+
+		<div class="sui-box-body">
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quizzes.quiz_design }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quizzes.quiz_design_description }}</span>
+
+				</div>
+
+				<div id="forminator-quizwiz-knowledge-theme" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+			<div class="sui-box-settings-row">
+
+				<div class="sui-box-settings-col-1">
+
+					<span class="sui-settings-label">{{ Forminator.l10n.quizzes.visual_style }}</span>
+					<span class="sui-description">{{ Forminator.l10n.quizzes.visual_style_description }}</span>
+
+				</div>
+
+				<div id="forminator-quizwiz-knowledge-visual" class="sui-box-settings-col-2"></div>
+
+			</div>
+
+		</div>
+
+	</script>
+
+	<script type="text/template" id="quiz-knowledge-palette-tpl">
+
+		<!-- Quiz Title -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_title }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--title" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Description -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_description }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--description" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Question -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.question }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--question" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Answer -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.answer }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<!-- Container background -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.container_background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-background" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Container border -->
+				<div class="sui-box wpmudev-not--matflat">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.container_border }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-border" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Font color -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.font_color }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-text" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox border -->
+				<div class="sui-box wpmudev-not--flat">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_border }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-checkbo" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox background -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-checkbg" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Checkbox icon -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.checkbox_icon }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-icon" class="sui-box-body"></div>
+
+				</div>
+
+				<!-- Answer message -->
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.quiz_appearance.answer_message }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--answer-message" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Submit Button -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.submit_button }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td>
+
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.background }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--submit-background" class="sui-box-body"></div>
+
+				</div>
+
+				<div class="sui-box">
+
+					<div class="sui-box-header">
+
+						<h3 class="sui-box-title">{{ Forminator.l10n.commons.font_color }}</h3>
+
+					</div>
+
+					<div id="forminator-quiz-color--submit-text" class="sui-box-body"></div>
+
+				</div>
+
+			</td>
+
+		</tr>
+
+		<!-- Quiz Result -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_result }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--result" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Share -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.social_share }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-color--social" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+	</script>
+
+	<script type="text/template" id="quiz-knowledge-typography-tpl">
+
+		<!-- Quiz Title -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_title }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--title" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Description -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_description }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--description" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Question -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.question }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--question" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Answer -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.answer }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--answer" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Answer Message -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.answer_message }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--answer-message" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Submit Button -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.submit_button }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--submit-button" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Result -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.quiz_result }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--result" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+		<!-- Quiz Share -->
+		<tr class="sui-accordion-item">
+
+			<td><strong>{{ Forminator.l10n.quiz_appearance.social_share }}</strong>
+				<span class="sui-accordion-open-indicator">
+					<i class="sui-icon-chevron-down"></i>
+				</span>
+			</td>
+
+		</tr>
+
+		<tr class="sui-accordion-item-content">
+
+			<td><div class="sui-box">
+
+				<div id="forminator-quiz-typography--social" class="sui-box-body"></div>
+
+			</div></td>
+
+		</tr>
+
+	</script>
+
+</div>

@@ -1,0 +1,35 @@
+@include body-class(true) {
+
+	.sui-table {
+
+		thead,
+		tbody,
+		tfoot {
+
+			th, td {
+
+				&.fui-col-status {
+					width: 98px;
+
+					> .sui-button-icon,
+					> .sui-dropdown {
+						margin-right: 3px;
+						margin-left: 4px;
+
+						&:first-child {
+							margin-left: 0;
+						}
+
+						&:last-child {
+							margin-right: 0;
+						}
+					}
+
+					@include media(min-width, md) {
+						width: 113px;
+					}
+				}
+			}
+		}
+	}
+}

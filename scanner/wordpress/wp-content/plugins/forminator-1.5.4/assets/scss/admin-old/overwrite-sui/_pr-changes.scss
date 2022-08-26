@@ -1,0 +1,381 @@
+// INCLUDED ON PULL REQUEST #97
+// https://github.com/wpmudev/shared-ui/pull/97
+@include body-class(true) {
+
+	.sui-insert-variables {
+
+		.sui-form-control {
+			padding-right: #{($form--input-height-base - 1px) + 14px};
+		}
+
+		.select-container {
+
+			.select-list-container {
+
+				li span {
+					pointer-events: none;
+				}
+			}
+		}
+
+		textarea.sui-form-control {
+
+			+ .select-container {
+
+				.select-list-container .list-value {
+					border-color: transparent;
+
+					&:hover {
+						border-left-color: transparent;
+						background-color: transparent;
+					}
+				}
+
+				&.active .select-list-container .list-value {
+					border-left-color: transparent;
+					background-color: transparent;
+				}
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+$ace-selector-background:       palette(gray, default) !default;
+$ace-selector-background-hover: palette(gray, dark)    !default;
+$ace-selector-color:            $white                   !default;
+
+@include body-class(true) {
+
+	.sui-ace-selectors {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: 15px;
+		margin-left: -5px;
+
+		.sui-selector {
+			height: 26px;
+			display: inline-flex;
+			flex: 0 0 auto;
+			margin: 0 0 5px 5px;
+			padding: 5px 12px;
+			border-radius: $border-radius;
+			background-color: $ace-selector-background;
+			font: 500 12px/16px $font;
+			letter-spacing: $font--letter-spacing;
+			transition: 0.3s ease;
+
+			&,
+			&:hover,
+			&:focus,
+			&:active,
+			&:visited {
+				border: 0;
+				outline: none;
+				box-shadow: none;
+				color: $ace-selector-color;
+			}
+
+			&:hover,
+			&:active {
+				background-color: $ace-selector-background-hover;
+			}
+		}
+
+		&:last-child {
+			margin: 0;
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-date {
+
+		.sui-button-icon {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+
+			i {
+				position: unset;
+				top: auto;
+				right: auto;
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-table {
+
+		tbody tr {
+
+			td:last-child {
+					
+				.sui-tooltip-top-left:after {
+					margin-right: -20px;
+				}
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-notice,
+	.sui-notice-top {
+
+		// NOTICE loading
+		&.sui-notice-loading {
+
+			p:first-of-type {
+				@include icon(before, loader, false);
+
+				&:before {
+					color: palette(gray, light);
+					animation: spin 1.3s linear infinite;
+				}
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-dialog-back {
+		@extend .sui-dialog-close;
+		@include icon(before, chevron-left, true);
+	}
+
+	.sui-dialog {
+
+		&.sui-dialog-special {
+
+			.sui-box-header,
+			.sui-box-body,
+			.sui-box-footer {
+				margin: 0;
+				border: 0;
+
+				.sui-box-content {
+					max-width: 600px;
+					display: block;
+					margin: 0 auto;
+				}
+			}
+
+			.sui-box-header,
+			.sui-box-body {
+				text-align: center;
+
+				p small {
+					color: palette(gray, light);
+					line-height: 22px;
+				}
+			}
+
+			.sui-box-header {
+				display: block;
+				position: relative;
+				margin: 35px 0 0;
+				padding: #{$sui-gutter * 2} $sui-gutter #{$sui-gutter / 2};
+
+				.sui-dialog-back,
+				.sui-dialog-close {
+					width: 30px;
+					height: 30px;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					position: absolute;
+					top: #{$sui-gutter / 2};
+					margin: 0;
+					padding: 0;
+					border: 0;
+
+					&, &:before {
+						color: palette( gray, light );
+						font-size: 16px;
+					}
+
+					&:hover, &:focus {
+						outline: none;
+					}
+
+					@include media( max-width, md ) {
+						top: #{$sui-gutter-md / 2};
+					}
+				}
+
+				.sui-dialog-close {
+					right: #{$sui-gutter / 2};
+
+					@include media( max-width, md ) {
+						right: #{$sui-gutter-md / 2};
+					}
+				}
+
+				.sui-dialog-back {
+					left: #{$sui-gutter / 2};
+					
+					@include media( max-width, md ) {
+						left: #{$sui-gutter-md / 2};
+					}
+				}
+
+				.sui-box-title {
+					margin: 0 0 20px;
+					color: palette(gray, dark);
+					font: bold 22px/30px $font--alt;
+
+					&:last-child {
+						margin: 0;
+					}
+				}
+
+				.sui-box-image {
+					width: 70px;
+					height: 70px;
+					display: block;
+					position: absolute;
+					top: -35px;
+					left: 50%;
+					margin-left: -35px;
+					border: 5px solid $white;
+					border-radius: 4px;
+					background-color: $white;
+					
+					img {
+						display: block;
+						border-radius: 3px;
+					}
+
+					@include media( max-width, md ) {
+						display: none;
+					}
+				}
+
+				@include media( max-width, md ) {
+					margin: 0;
+					padding: #{$sui-gutter-md / 2} $sui-gutter-md;
+				}
+			}
+
+			.sui-box-body {
+				padding: #{$sui-gutter / 2} $sui-gutter;
+				
+				.sui-table,
+				.sui-form-field {
+					text-align: left;
+				}
+
+				.sui-table {
+					
+					th {
+						padding-top: 19px;
+						padding-bottom: 19px;
+					}
+
+					td {
+						
+						.integrations-required-field {
+							color: #FF7F83;
+							font-weight: bold;
+						}
+
+						&:first-child {
+							color: palette(gray, dark);
+							font-weight: 500;
+						}
+					}
+				}
+
+				@include media( max-width, md ) {
+					padding: #{$sui-gutter-md / 2} $sui-gutter-md;
+				}
+			}
+
+			.sui-box-footer {
+				padding: #{$sui-gutter / 2} $sui-gutter $sui-gutter;
+
+				@include media( max-width, md ) {
+					padding: #{$sui-gutter-md / 2} $sui-gutter-md $sui-gutter-md;
+				}
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-button,
+	a.sui-button,
+	button.sui-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+
+		.sui-loading-text {
+			flex: 1;
+		}
+
+		i {
+			width: 16px;
+			height: 16px;
+			display: inline-flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			font-size: 16px;
+
+			&:before {
+				display: block;
+			}
+		}
+	}
+}
+
+// INCLUDED ON PULL REQUEST #
+// https://github.com/wpmudev/shared-ui/pull/
+@include body-class(true) {
+
+	.sui-table {
+
+		&.fui-integrations-active {
+			border-left: 2px solid $blue;
+
+			th, td {
+
+				&:first-child {
+					padding-left: calc(#{$sui-gutter} - 2px);
+		
+					@include media( max-width, md ) {
+						padding-left: 0;
+					}
+				}
+		
+				&:last-child {
+					padding-right: calc(#{$sui-gutter} - 2px);
+		
+					@include media( max-width, md ) {
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
+}

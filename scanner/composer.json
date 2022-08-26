@@ -1,0 +1,6 @@
+{
+    "require": {
+        "mongodb/mongodb": "^1.7",
+        "nikic/php-parser": "^4.10"
+    }
+}

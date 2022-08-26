@@ -1,0 +1,120 @@
+// Summary
+$summary-image: '../images/forminator-summary@2x.png';
+$summary-image-sm: '../images/forminator-summary-sm@2x.png';
+
+// ChartJS
+$chartjs-image--loading: '../images/forminator-charts@2x.png';
+
+// Cross Sell Footer
+$cross-sell-1: 'smush';
+$cross-sell-2: 'defender';
+$cross-sell-3: 'smartcrawl';
+
+// ============================================================
+// Shared UI
+// Import original shared-ui styles.
+// @import "~@wpmudev/shared-ui/scss/shared-ui.scss";
+
+// ============================================================
+// Shared UI
+// Import one-by-one each element from shared-ui library. This
+// will allow to replace them with files containing changes that
+// are already under pull-request and waiting to be released.
+@import "../../node_modules/@wpmudev/shared-ui/scss/functions";
+@import "../../node_modules/@wpmudev/shared-ui/scss/colors";
+@import "../../node_modules/@wpmudev/shared-ui/scss/variables";
+@import "../../node_modules/@wpmudev/shared-ui/scss/mixins";
+@import "../../node_modules/@wpmudev/shared-ui/scss/accessibility";
+@import "../../node_modules/@wpmudev/shared-ui/scss/animations";
+@import "../../node_modules/@wpmudev/shared-ui/scss/typography";
+@import "../../node_modules/@wpmudev/shared-ui/scss/icons";
+@import "../../node_modules/@wpmudev/shared-ui/scss/buttons";
+@import "../../node_modules/@wpmudev/shared-ui/scss/toggles";
+@import "../../node_modules/@wpmudev/shared-ui/scss/boxes";
+@import "../../node_modules/@wpmudev/shared-ui/scss/layout";
+@import "../../node_modules/@wpmudev/shared-ui/scss/notifications";
+// @import "../../node_modules/@wpmudev/shared-ui/scss/header";
+@import "sui-2-3-4/header";
+@import "../../node_modules/@wpmudev/shared-ui/scss/summary";
+@import "../../node_modules/@wpmudev/shared-ui/scss/list";
+@import "../../node_modules/@wpmudev/shared-ui/scss/tooltips";
+@import "../../node_modules/@wpmudev/shared-ui/scss/select";
+@import "../../node_modules/@wpmudev/shared-ui/scss/tags";
+@import "../../node_modules/@wpmudev/shared-ui/scss/forms";
+@import "../../node_modules/@wpmudev/shared-ui/scss/radio-checkbox";
+@import "../../node_modules/@wpmudev/shared-ui/scss/upload";
+@import "../../node_modules/@wpmudev/shared-ui/scss/tabs";
+// @import "../../node_modules/@wpmudev/shared-ui/scss/sidenav";
+@import "sui-2-3-4/sidenav";
+@import "../../node_modules/@wpmudev/shared-ui/scss/dropdowns";
+@import "../../node_modules/@wpmudev/shared-ui/scss/scores";
+@import "../../node_modules/@wpmudev/shared-ui/scss/footer";
+@import "../../node_modules/@wpmudev/shared-ui/scss/progress-bars";
+@import "../../node_modules/@wpmudev/shared-ui/scss/tables";
+@import "../../node_modules/@wpmudev/shared-ui/scss/accordions";
+@import "../../node_modules/@wpmudev/shared-ui/scss/code-snippet";
+@import "../../node_modules/@wpmudev/shared-ui/scss/modals";
+@import "../../node_modules/@wpmudev/shared-ui/scss/listing";
+@import "../../node_modules/@wpmudev/shared-ui/scss/pagination";
+@import "../../node_modules/@wpmudev/shared-ui/scss/select2";
+@import "../../node_modules/@wpmudev/shared-ui/scss/calendar";
+// @import "../../node_modules/@wpmudev/shared-ui/scss/utility";
+@import "sui-2-3-4/utility";
+@import "../../node_modules/@wpmudev/shared-ui/scss/wp-admin-notices";
+@import "../../node_modules/@wpmudev/shared-ui/scss/ace-editor";
+@import "../../node_modules/@wpmudev/shared-ui/scss/recipient";
+@import "../../node_modules/@wpmudev/shared-ui/scss/chartjs";
+@import "../../node_modules/@wpmudev/shared-ui/scss/color-accessibility";
+
+// ============================================================
+// Shared UI
+// There are some styles from SUI that needs to be overwritten
+// or included per project only. Those kind of styles should be
+// place them inside "shared-ui" folder:
+// @import "shared-ui/variables";
+
+// ============================================================
+// Admin UI
+// The following styles are specifically for the project and not
+// related to shared-ui.
+@import "admin-ui/tables";
+
+// ============================================================
+// Admin UI OLD
+// Get admin styles from Forminator 1.5.x to prevent other admin
+// pages to break.
+
+// Overwrite SUI
+@import "admin-old/overwrite-sui/variables";
+@import "admin-old/overwrite-sui/boxes";
+@import "admin-old/overwrite-sui/modals";
+@import "admin-old/overwrite-sui/tables";
+@import "admin-old/overwrite-sui/sidenav";
+@import "admin-old/overwrite-sui/toggles";
+@import "admin-old/overwrite-sui/accordion";
+@import "admin-old/overwrite-sui/pr-changes";
+
+// Forminator UI
+@import "admin-old/forminator-ui/boxes";
+@import "admin-old/forminator-ui/chips";
+@import "admin-old/forminator-ui/forms";
+@import "admin-old/forminator-ui/editor";
+@import "admin-old/forminator-ui/modals";
+@import "admin-old/forminator-ui/select";
+@import "admin-old/forminator-ui/tables";
+@import "admin-old/forminator-ui/builder";
+@import "admin-old/forminator-ui/buttons";
+@import "admin-old/forminator-ui/summary";
+@import "admin-old/forminator-ui/utility";
+@import "admin-old/forminator-ui/actions";
+@import "admin-old/forminator-ui/animations";
+@import "admin-old/forminator-ui/multi-name";
+@import "admin-old/forminator-ui/multicheck";
+@import "admin-old/forminator-ui/multi-order";
+@import "admin-old/forminator-ui/multi-value";
+@import "admin-old/forminator-ui/multi-answer";
+@import "admin-old/forminator-ui/multi-result";
+@import "admin-old/forminator-ui/color-picker";
+@import "admin-old/forminator-ui/multi-select";
+@import "admin-old/forminator-ui/builder-actions";
+@import "admin-old/forminator-ui/multi-question";
